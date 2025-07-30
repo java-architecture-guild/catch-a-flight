@@ -26,7 +26,7 @@ Project is divided into few separated stages. Each stage will be in dedicated gi
     * Way of Working
     * Architecture Decision Records
 
-2. Basic Modular Monolith
+2. [Basic Modular Monolith](https://github.com/java-architecture-guild/catch-a-flight/tree/modular-monolith-base) 
     * Event Storming
     * Domain-Driven Design
     * Event-Driven Design
@@ -35,22 +35,38 @@ Project is divided into few separated stages. Each stage will be in dedicated gi
     * H2 In Memory SQL Based Persistence
     * JDK 24, Spring Boot 3
 
-3. Enhanced Modular Monolith
+3. [Enhanced Modular Monolith](https://github.com/java-architecture-guild/catch-a-flight/tree/modular-monolith-enhanced)
     * API Stack: REST, Server-Side Events, GraphQL, WebSockets, gRPC
     * SQL Databases: PostgreSQL, MySQL
-    * NoSQL Databases: Redis, MongoDB, Cassandra, InfluxDB, Neo4j
+    * NoSQL Databases: Redis, MongoDB, ElasticSearch, Cassandra, InfluxDB, Neo4j
 
-4. Microservices
+4. [Microservices](https://github.com/java-architecture-guild/catch-a-flight/tree/microservices-docker)
     * Async Messaging: RabbitMQ
     * Event Streaming: Apache Kafka
     * OAuth2
     * Cloud Design Patterns
     * Full Observability: Logging, Monitoring, and Tracing
 
-5. Microservices in Cloud (GCP, AWS, Azure)
+5. [Microservices in AWS Cloud](https://github.com/java-architecture-guild/catch-a-flight/tree/microservices-aws)
     * Cloud Managed Services
     * Serverless
     * Kubernetes
     * API Management
     * Deployments: Rolling Upgrade, Blue-Green, Canary
     * Terraform
+
+6. [Microservices in Azure Cloud](https://github.com/java-architecture-guild/catch-a-flight/tree/microservices-azure)
+   * Cloud Managed Services
+   * Serverless
+   * Kubernetes
+   * API Management
+   * Deployments: Rolling Upgrade, Blue-Green, Canary
+   * Terraform
+
+7. [Microservices in GCP Cloud](https://github.com/java-architecture-guild/catch-a-flight/tree/microservices-gcp)
+   * Cloud Managed Services
+   * Serverless
+   * Kubernetes
+   * API Management
+   * Deployments: Rolling Upgrade, Blue-Green, Canary
+   * Terraform
