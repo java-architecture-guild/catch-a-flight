@@ -13,12 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import static jag.catchflight.account.adapter.in.SignInRestController.SignInResponse.SuccessResponse;
 import static jag.catchflight.account.port.in.SignInUseCase.SignInCommand;
-import static jag.catchflight.account.port.in.SignInUseCase.SignInResult.AuthenticationFailure;
-import static jag.catchflight.account.port.in.SignInUseCase.SignInResult.InternalFailure;
+import static jag.catchflight.account.port.in.SignInUseCase.SignInResult.*;
 import static jag.catchflight.common.controller.ResponseBodyHelper.badRequestBody;
 import static jag.catchflight.common.controller.ResponseBodyHelper.internalServerErrorBody;
-import static org.springframework.http.ResponseEntity.status;
 
 /// REST controller for handling user sign-in requests.
 ///
@@ -30,8 +29,6 @@ import static org.springframework.http.ResponseEntity.status;
 @RestController
 @RequiredArgsConstructor
 class SignInRestController {
-    private static final String INCORRECT_CREDENTIALS = "Incorrect user and/or password.";
-
     private final SignInUseCase signInUseCase;
     private final SignInMapper signInMapper;
     private final HttpServletRequest servletRequest;
@@ -43,8 +40,8 @@ class SignInRestController {
         var signInCommand = signInMapper.toCommand(request);
         var signInResult = signInUseCase.signIn(signInCommand);
         return switch (signInResult) {
-            case SignInUseCase.SignInResult.Success(UserId userId) -> successBody(userId);
-            case AuthenticationFailure _ -> badRequestBody(servletRequest, INCORRECT_CREDENTIALS);
+            case Success(UserId userId) -> successBody(userId);
+            case AuthenticationFailure _ -> badRequestBody(servletRequest, "Incorrect user and/or password.");
             case InternalFailure(Throwable cause) -> internalServerErrorBody(servletRequest, cause);
         };
     }
@@ -52,14 +49,16 @@ class SignInRestController {
     /// Represents the request body for user sign-in.
     record SignInRequest(String email, String password) {}
 
-    /// The sealed interface for all possible responses from the sign-in endpoint.
-    interface SignInResponse {
-        record SuccessResponse(UserId userId) implements SignInResponse {}
+    /// Creates a `201 Created` [ResponseEntity] with the user's ID in the body.
+    static ResponseEntity<SignInResponse> successBody(UserId userId) {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(new SuccessResponse(userId));
     }
 
-    /// Creates a `201 Created` [ResponseEntity] with the user's ID in the body.
-    private static ResponseEntity<SignInResponse> successBody(UserId userId) {
-        return status(HttpStatus.CREATED).body(new SignInResponse.SuccessResponse(userId));
+    /// Sucessful sign-in operation response.
+    interface SignInResponse {
+        record SuccessResponse(UserId userId) implements SignInResponse {}
     }
 
     /// Maps [SignInRequest] objects to [SignInCommand] objects.
