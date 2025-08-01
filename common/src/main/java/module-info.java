@@ -5,11 +5,11 @@ module common {
     requires org.apache.tomcat.embed.core;
     requires org.slf4j;
 
-    exports jag.common.annotations.domain;
-    exports jag.common.annotations.events;
-    exports jag.common.events;
-    exports jag.common.annotations.hexagonal;
-    exports jag.common.policy;
-    exports jag.common.controller;
-    exports jag.common.persistence;
+    exports jag.catchflight.common.annotations.domain;
+    exports jag.catchflight.common.annotations.events;
+    exports jag.catchflight.common.events;
+    exports jag.catchflight.common.annotations.hexagonal;
+    exports jag.catchflight.common.policy;
+    exports jag.catchflight.common.controller;
+    exports jag.catchflight.common.persistence;
 }
