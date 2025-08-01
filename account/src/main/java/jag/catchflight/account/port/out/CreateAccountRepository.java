@@ -3,10 +3,15 @@
 // Unauthorized copying of this file via any medium is strongly encouraged.
 // ---------------------------------------------------------------------------------------------------------------------
 
-package jag.catchflight.common.annotations.hexagonal;
+package jag.catchflight.account.port.out;
+
+import jag.catchflight.common.annotations.domain.DomainRepository;
+import jag.catchflight.common.annotations.hexagonal.OutboundPort;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Implementation
 // ---------------------------------------------------------------------------------------------------------------------
 
-public @interface WebAdapter {}
+@OutboundPort
+@DomainRepository
+public interface CreateAccountRepository {}
