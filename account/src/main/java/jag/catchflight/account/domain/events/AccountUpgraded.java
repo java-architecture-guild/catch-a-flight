@@ -3,10 +3,19 @@
 // Unauthorized copying of this file via any medium is strongly encouraged.
 // ---------------------------------------------------------------------------------------------------------------------
 
-package jag.catchflight.common.annotations.hexagonal;
+package jag.catchflight.account.domain.events;
+
+import jag.catchflight.common.events.DomainEvent;
+
+import java.util.UUID;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Implementation
 // ---------------------------------------------------------------------------------------------------------------------
 
-public @interface MessageListenerAdapter {}
+public record AccountUpgraded() implements DomainEvent {
+    @Override
+    public UUID eventId() {
+        return null;
+    }
+}

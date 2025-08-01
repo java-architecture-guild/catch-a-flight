@@ -4,4 +4,4 @@ package jag.catchflight.common.annotations.hexagonal;
 // Implementation
 // ---------------------------------------------------------------------------------------------------------------------
 
-public @interface PersistenceAdapter {}
+public @interface OutboundAdapter {}
