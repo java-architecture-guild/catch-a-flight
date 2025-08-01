@@ -1,56 +1,68 @@
-# Catch A Flight
-
 # Catch a Flight
 
-My personal take on:
-_**Event Storming, Domain-Driven Design, Hexagonal Architecture, Modularity, Microservices, Cloud Design Patterns, 
-Data-Oriented Programming, Event-Driven, Design, SQL and NoSQL Databases, REST, GraphQL, gRPC, Server-Side Events, 
-WebSockets, Async Messaging, with JDK 24 and Spring Boot 3**_. And much more ...
+## Modular Monolith Variant
 
-The main goal of this project is to find, test and describe in details the best possible practices for software 
-engineering in Java and Spring Boot ecosystem.
+### Architecture
 
-## Table of Contents
+### Tech Stack
 
-* [Introduction](#introduction)
-* [Stages](#stages)
+- Java 24
+- Spring Boot 3.5
+- REST / GraphQL
+- Spring Security
+- Spring Authorization Server
+- Spring Data JDBC
+- Spring Data JPA
+- H2 Database
 
-## Introduction
+### Modules
 
-Project is divided into few separated stages. Each stage will be in dedicated git branch. The final one is in the main.
+#### Account
 
-## Stages
+Manages user identities, secures access to the system, and handles subscription details, ensuring a personalized and
+protected experience.
 
-1. Set Up
-    * Prerequisites
-    * Way of Working
-    * Architecture Decision Records
+#### BestDeal
 
-2. Basic Modular Monolith
-    * Event Storming
-    * Domain-Driven Design
-    * Event-Driven Design
-    * Hexagonal Architecture
-    * Data-Oriented Programming
-    * H2 In Memory SQL Based Persistence
-    * JDK 24, Spring Boot 3
+Helps users discover the most affordable flight options by analyzing real-time data and highlighting top-value
+fares for various destinations.
 
-3. Enhanced Modular Monolith
-    * API Stack: REST, Server-Side Events, GraphQL, WebSockets, gRPC
-    * SQL Databases: PostgreSQL, MySQL
-    * NoSQL Databases: Redis, MongoDB, Cassandra, InfluxDB, Neo4j
+#### Booking
 
-4. Microservices
-    * Async Messaging: RabbitMQ
-    * Event Streaming: Apache Kafka
-    * OAuth2
-    * Cloud Design Patterns
-    * Full Observability: Logging, Monitoring, and Tracing
+Simplifies the flight reservation process, allowing users to search for flights, select their preferred seats and travel 
+extras, and securely complete their payment in one seamless flow.
 
-5. Microservices in Cloud (GCP, AWS, Azure)
-    * Cloud Managed Services
-    * Serverless
-    * Kubernetes
-    * API Management
-    * Deployments: Rolling Upgrade, Blue-Green, Canary
-    * Terraform
+#### Engagement
+
+Captures user interactions and feedback to deliver personalized content, targeted promotions, and timely notifications 
+that enhance the overall user experience
+
+#### Order
+
+Handles the entire booking lifecycle after a user has paid, managing ticket generation, itinerary details, 
+and any subsequent modifications or cancellations.
+
+#### Query
+
+Processes and fulfills user search requests for flights, using various criteria like origin, destination, 
+and dates to present relevant and up-to-date flight information.
+
+#### Common
+
+Provides a set of reusable functionalities and shared data, such as currency conversion, time zone management, 
+and universal design components, to ensure consistency across the entire system.
+
+#### Shared-kernel
+
+Contains a small, highly-cohesive subset of the domain model, such as core entities or value objects, that are critical 
+for communication and collaboration between different bounded contexts.
+
+#### Application
+
+Serves as the main entry point for the application, orchestrating the initialization and integration of all other 
+modules to launch and run the entire system.
+
+#### Api Simulator
+
+Mimics the behavior of external APIs, allowing developers to test system functionality in a controlled environment 
+without relying on live services.
