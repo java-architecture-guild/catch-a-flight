@@ -22,10 +22,9 @@ import static jag.catchflight.common.controller.ResponseBodyHelper.badRequestBod
 import static jag.catchflight.common.controller.ResponseBodyHelper.internalServerErrorBody;
 import static org.springframework.http.ResponseEntity.status;
 
-/// REST controller for creating new user accounts.
-/// This class handles HTTP POST requests to the account creation endpoint.
-/// It uses a [CreateAccountUseCase] to orchestrate the creation of an account
-/// and maps the request and response objects using a [CreateAccountMapper].
+/// REST controller for handling account creation requests.
+/// This controller processes HTTP requests to create new user accounts
+/// and delegates the business logic to the [CreateAccountUseCase].
 @Slf4j
 @InboundAdapter
 @RestController
@@ -35,7 +34,17 @@ class CreateAccountRestController {
     private final CreateAccountMapper createAccountMapper;
     private final HttpServletRequest servletRequest;
 
-    /// Handles the creation of a new user account.
+    /// Handles the user account creation process.
+    ///
+    /// This endpoint accepts a JSON body with user account details, attempts to create a new user account,
+    /// and returns the appropriate HTTP response based on the outcome.
+    ///
+    /// @param request The request body containing the user account details.
+    /// @return A [ResponseEntity] representing the result of the account creation attempt.
+    ///
+    ///   - `201 Created`: If account creation is successful, returning the user's ID.
+    ///   - `400 Bad Request`: If account creation fails due to an existing account or password policy violation.
+    ///   - `500 Internal Server Error`: If an unexpected error occurs during the process.
     @PostMapping
     ResponseEntity<?> createUser(@Validated @RequestBody CreateAccountRequest request) {
         log.info("Request: {}", request);
@@ -66,8 +75,7 @@ class CreateAccountRestController {
         return status(HttpStatus.CREATED).body(new CreateAccountResponse.SuccessResponse(userId));
     }
 
-    /// Maps between the [CreateAccountRequest] DTO and
-    /// the domain-specific [CreateAccountUseCase.CreateAccountCommand].
+    /// Maps between the [CreateAccountRequest] DTO and the domain-specific [CreateAccountUseCase.CreateAccountCommand].
     private static class CreateAccountMapper {
         CreateAccountUseCase.CreateAccountCommand toCommand(CreateAccountRequest request) {
             return new CreateAccountUseCase.CreateAccountCommand(

@@ -33,7 +33,19 @@ class SignInRestController {
     private final SignInMapper signInMapper;
     private final HttpServletRequest servletRequest;
 
-    /// Handles the user sign-in process.
+    /// Handles HTTP POST requests to authenticate and sign in a user.
+    ///
+    /// This endpoint processes the sign-in request, validates the provided credentials,
+    /// and delegates the authentication logic to the [SignInUseCase]. Based on
+    /// the result, it returns an appropriate HTTP response.
+    ///
+    /// @param request the [SignInRequest] containing the user's sign-in credentials
+    ///                                                             (e.g., username and password). Must not be null and must be valid.
+    /// @return a [ResponseEntity] containing the response body and HTTP status code:
+    ///
+    ///     - Success: Returns a success response with the authenticated [UserId].
+    ///     - Authentication Failure: Returns a 400 Bad Request response with an error message.
+    ///     - Internal Failure: Returns a 500 Internal Server Error response with error details.
     @PostMapping
     ResponseEntity<?> signInUser(@Validated @RequestBody SignInRequest request) {
         log.info("Request: {}", request);
