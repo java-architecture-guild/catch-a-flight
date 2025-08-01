@@ -40,7 +40,6 @@ class SignInRestController {
     /// the result, it returns an appropriate HTTP response.
     ///
     /// @param request the [SignInRequest] containing the user's sign-in credentials
-    ///                                                             (e.g., username and password). Must not be null and must be valid.
     /// @return a [ResponseEntity] containing the response body and HTTP status code:
     ///
     ///     - Success: Returns a success response with the authenticated [UserId].
@@ -49,9 +48,9 @@ class SignInRestController {
     @PostMapping
     ResponseEntity<?> signInUser(@Validated @RequestBody SignInRequest request) {
         log.info("Request: {}", request);
-        var signInCommand = signInMapper.toCommand(request);
-        var signInResult = signInUseCase.signIn(signInCommand);
-        return switch (signInResult) {
+        var command = signInMapper.toCommand(request);
+        var result = signInUseCase.signIn(command);
+        return switch (result) {
             case Success(UserId userId) -> successBody(userId);
             case AuthenticationFailure _ -> badRequestBody(servletRequest, "Incorrect user and/or password.");
             case InternalFailure(Throwable cause) -> internalServerErrorBody(servletRequest, cause);

@@ -42,15 +42,15 @@ class CreateAccountRestController {
     /// @param request The request body containing the user account details.
     /// @return A [ResponseEntity] representing the result of the account creation attempt.
     ///
-    ///   - `201 Created`: If account creation is successful, returning the user's ID.
-    ///   - `400 Bad Request`: If account creation fails due to an existing account or password policy violation.
-    ///   - `500 Internal Server Error`: If an unexpected error occurs during the process.
+    ///     - `201 Created`: If account creation is successful, returning the user's ID.
+    ///     - `400 Bad Request`: If account creation fails due to an existing account or password policy violation.
+    ///     - `500 Internal Server Error`: If an unexpected error occurs during the process.
     @PostMapping
     ResponseEntity<?> createUser(@Validated @RequestBody CreateAccountRequest request) {
         log.info("Request: {}", request);
-        var createUserCommand = createAccountMapper.toCommand(request);
-        var createUserResult = createAccountUseCase.createUser(createUserCommand);
-        return switch (createUserResult) {
+        var command = createAccountMapper.toCommand(request);
+        var result = createAccountUseCase.createUser(command);
+        return switch (result) {
             case Success(UserId userId) -> successBody(userId);
             case ExistingAccountFailure(String message) -> badRequestBody(servletRequest, message);
             case PasswordPolicyFailure(String message) -> badRequestBody(servletRequest, message);
