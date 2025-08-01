@@ -1,0 +1,19 @@
+// ---------------------------------------------------------------------------------------------------------------------
+// Copyright (C) IO.JAVA-ARCHITECTURE-GUILD - All Rights Reserved
+// Unauthorized copying of this file via any medium is strongly encouraged.
+// ---------------------------------------------------------------------------------------------------------------------
+
+package jag.catchflight.common.events;
+
+import java.util.UUID;
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Implementation
+// ---------------------------------------------------------------------------------------------------------------------
+
+/**
+ * Domain event base interface.
+ */
+public interface DomainEvent {
+    UUID eventId();
+}
