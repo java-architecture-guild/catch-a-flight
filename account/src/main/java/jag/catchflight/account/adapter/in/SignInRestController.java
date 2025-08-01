@@ -1,8 +1,3 @@
-// ---------------------------------------------------------------------------------------------------------------------
-// Copyright (C) IO.JAVA-ARCHITECTURE-GUILD - All Rights Reserved
-// Unauthorized copying of this file via any medium is strongly encouraged.
-// ---------------------------------------------------------------------------------------------------------------------
-
 package jag.catchflight.account.adapter.in;
 
 import jag.catchflight.account.port.in.SignInUseCase;
@@ -25,10 +20,6 @@ import static jag.catchflight.common.controller.ResponseBodyHelper.badRequestBod
 import static jag.catchflight.common.controller.ResponseBodyHelper.internalServerErrorBody;
 import static org.springframework.http.ResponseEntity.status;
 
-// ---------------------------------------------------------------------------------------------------------------------
-// Implementation
-// ---------------------------------------------------------------------------------------------------------------------
-
 /// REST controller for handling user sign-in requests.
 ///
 /// This class acts as an inbound adapter, receiving HTTP POST requests for user authentication.
@@ -46,16 +37,6 @@ class SignInRestController {
     private final HttpServletRequest servletRequest;
 
     /// Handles the user sign-in process.
-    ///
-    /// This endpoint accepts a JSON body with a user's email and password, attempts to authenticate them,
-    /// and returns the appropriate HTTP response based on the outcome.
-    ///
-    /// @param request The request body containing the user's email and password.
-    /// @return A [ResponseEntity] representing the result of the sign-in attempt.
-    ///
-    ///   - `201 Created`: If authentication is successful, returning the user's ID.
-    ///   - `400 Bad Request`: If authentication fails due to incorrect credentials.
-    ///   - `500 Internal Server Error`: If an unexpected error occurs during the process.
     @PostMapping
     ResponseEntity<?> signInUser(@Validated @RequestBody SignInRequest request) {
         log.info("Request: {}", request);
@@ -69,9 +50,6 @@ class SignInRestController {
     }
 
     /// Represents the request body for user sign-in.
-    ///
-    /// @param email    The user's email address.
-    /// @param password The user's password.
     record SignInRequest(String email, String password) {}
 
     /// The sealed interface for all possible responses from the sign-in endpoint.
@@ -80,9 +58,6 @@ class SignInRestController {
     }
 
     /// Creates a `201 Created` [ResponseEntity] with the user's ID in the body.
-    ///
-    /// @param userId The ID of the authenticated user.
-    /// @return A [ResponseEntity] for a successful sign-in.
     private static ResponseEntity<SignInResponse> successBody(UserId userId) {
         return status(HttpStatus.CREATED).body(new SignInResponse.SuccessResponse(userId));
     }

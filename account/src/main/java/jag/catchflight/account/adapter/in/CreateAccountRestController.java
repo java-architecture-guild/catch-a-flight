@@ -1,8 +1,3 @@
-// ---------------------------------------------------------------------------------------------------------------------
-// Copyright (C) IO.JAVA-ARCHITECTURE-GUILD - All Rights Reserved
-// Unauthorized copying of this file via any medium is strongly encouraged.
-// ---------------------------------------------------------------------------------------------------------------------
-
 package jag.catchflight.account.adapter.in;
 
 import jag.catchflight.account.domain.model.Password;
@@ -27,16 +22,10 @@ import static jag.catchflight.common.controller.ResponseBodyHelper.badRequestBod
 import static jag.catchflight.common.controller.ResponseBodyHelper.internalServerErrorBody;
 import static org.springframework.http.ResponseEntity.status;
 
-// ---------------------------------------------------------------------------------------------------------------------
-// Implementation
-// ---------------------------------------------------------------------------------------------------------------------
-
 /// REST controller for creating new user accounts.
 /// This class handles HTTP POST requests to the account creation endpoint.
 /// It uses a [CreateAccountUseCase] to orchestrate the creation of an account
 /// and maps the request and response objects using a [CreateAccountMapper].
-///
-/// This controller is an inbound adapter, meaning it's an entry point into the application's core logic.
 @Slf4j
 @InboundAdapter
 @RestController
@@ -47,18 +36,6 @@ class CreateAccountRestController {
     private final HttpServletRequest servletRequest;
 
     /// Handles the creation of a new user account.
-    ///
-    /// This method processes a POST request containing user details. It validates the request body,
-    /// maps it to a command, and then uses the [CreateAccountUseCase] to create the account.
-    /// The response varies based on the outcome of the use case:
-    ///
-    ///   - `201 Created`: On successful account creation, returns the new user's ID.
-    ///   - `400 Bad Request`: If the account already exists or the password policy is not met.
-    ///   - `500 Internal Server Error`: For any unexpected internal errors.
-    ///
-    ///
-    /// @param request The [CreateAccountRequest] containing the new user's details.
-    /// @return A [ResponseEntity] with the appropriate status and body.
     @PostMapping
     ResponseEntity<?> createUser(@Validated @RequestBody CreateAccountRequest request) {
         log.info("Request: {}", request);
@@ -73,11 +50,6 @@ class CreateAccountRestController {
     }
 
     /// Represents the data transfer object for creating a new user account.
-    ///
-    /// @param email     The user's email address.
-    /// @param password  The user's chosen password.
-    /// @param firstName The user's first name.
-    /// @param lastName  The user's last name.
     record CreateAccountRequest(
             @NotNull String email,
             @NotNull String password,
@@ -89,6 +61,7 @@ class CreateAccountRestController {
         record SuccessResponse(UserId userId) implements CreateAccountResponse {}
     }
 
+    /// Creates a `201 Created` [ResponseEntity] with the user's ID in the body.
     private static ResponseEntity<CreateAccountResponse> successBody(UserId userId) {
         return status(HttpStatus.CREATED).body(new CreateAccountResponse.SuccessResponse(userId));
     }
