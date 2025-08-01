@@ -29,14 +29,11 @@ import static org.springframework.http.ResponseEntity.status;
 // Implementation
 // ---------------------------------------------------------------------------------------------------------------------
 
-/**
- * REST controller for handling user sign-in requests.
- * <p>
- * This class acts as an inbound adapter, receiving HTTP POST requests for user authentication.
- * It uses the {@link SignInUseCase} to execute the sign-in logic and the {@link SignInMapper}
- * to convert the API request DTO to an internal command object.
- * </p>
- */
+/// REST controller for handling user sign-in requests.
+///
+/// This class acts as an inbound adapter, receiving HTTP POST requests for user authentication.
+/// It uses the [SignInUseCase] to execute the sign-in logic and the [SignInMapper]
+/// to convert the API request DTO to an internal command object.
 @Slf4j
 @InboundAdapter
 @RestController
@@ -48,21 +45,17 @@ class SignInRestController {
     private final SignInMapper signInMapper;
     private final HttpServletRequest servletRequest;
 
-    /**
-     * Handles the user sign-in process.
-     * <p>
-     * This endpoint accepts a JSON body with a user's email and password, attempts to authenticate them,
-     * and returns the appropriate HTTP response based on the outcome.
-     * </p>
-     *
-     * @param request The request body containing the user's email and password.
-     * @return A {@link ResponseEntity} representing the result of the sign-in attempt.
-     * <ul>
-     * <li>{@code 201 Created}: If authentication is successful, returning the user's ID.</li>
-     * <li>{@code 400 Bad Request}: If authentication fails due to incorrect credentials.</li>
-     * <li>{@code 500 Internal Server Error}: If an unexpected error occurs during the process.</li>
-     * </ul>
-     */
+    /// Handles the user sign-in process.
+    ///
+    /// This endpoint accepts a JSON body with a user's email and password, attempts to authenticate them,
+    /// and returns the appropriate HTTP response based on the outcome.
+    ///
+    /// @param request The request body containing the user's email and password.
+    /// @return A [ResponseEntity] representing the result of the sign-in attempt.
+    ///
+    ///   - `201 Created`: If authentication is successful, returning the user's ID.
+    ///   - `400 Bad Request`: If authentication fails due to incorrect credentials.
+    ///   - `500 Internal Server Error`: If an unexpected error occurs during the process.
     @PostMapping
     ResponseEntity<?> signInUser(@Validated @RequestBody SignInRequest request) {
         log.info("Request: {}", request);
@@ -75,42 +68,26 @@ class SignInRestController {
         };
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    // Contract Types Section
-    // -----------------------------------------------------------------------------------------------------------------
-
-    /**
-     * Represents the request body for user sign-in.
-     *
-     * @param email    The user's email address.
-     * @param password The user's password.
-     */
+    /// Represents the request body for user sign-in.
+    ///
+    /// @param email    The user's email address.
+    /// @param password The user's password.
     record SignInRequest(String email, String password) {}
 
-    /**
-     * The sealed interface for all possible responses from the sign-in endpoint.
-     */
+    /// The sealed interface for all possible responses from the sign-in endpoint.
     interface SignInResponse {
         record SuccessResponse(UserId userId) implements SignInResponse {}
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    // Static Types Section
-    // -----------------------------------------------------------------------------------------------------------------
-
-    /**
-     * Creates a {@code 201 Created} {@link ResponseEntity} with the user's ID in the body.
-     *
-     * @param userId The ID of the authenticated user.
-     * @return A {@link ResponseEntity} for a successful sign-in.
-     */
+    /// Creates a `201 Created` [ResponseEntity] with the user's ID in the body.
+    ///
+    /// @param userId The ID of the authenticated user.
+    /// @return A [ResponseEntity] for a successful sign-in.
     private static ResponseEntity<SignInResponse> successBody(UserId userId) {
         return status(HttpStatus.CREATED).body(new SignInResponse.SuccessResponse(userId));
     }
 
-    /**
-     * Maps {@link SignInRequest} objects to {@link SignInCommand} objects.
-     */
+    /// Maps [SignInRequest] objects to [SignInCommand] objects.
     private static class SignInMapper {
         SignInCommand toCommand(SignInRequest request) {
             return new SignInCommand();

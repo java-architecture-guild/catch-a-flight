@@ -31,14 +31,12 @@ import static org.springframework.http.ResponseEntity.status;
 // Implementation
 // ---------------------------------------------------------------------------------------------------------------------
 
-/**
- * REST controller for creating new user accounts.
- * This class handles HTTP POST requests to the account creation endpoint.
- * It uses a {@link CreateAccountUseCase} to orchestrate the creation of an account
- * and maps the request and response objects using a {@link CreateAccountMapper}.
- * <p>
- * This controller is an inbound adapter, meaning it's an entry point into the application's core logic.
- */
+/// REST controller for creating new user accounts.
+/// This class handles HTTP POST requests to the account creation endpoint.
+/// It uses a [CreateAccountUseCase] to orchestrate the creation of an account
+/// and maps the request and response objects using a [CreateAccountMapper].
+///
+/// This controller is an inbound adapter, meaning it's an entry point into the application's core logic.
 @Slf4j
 @InboundAdapter
 @RestController
@@ -48,21 +46,19 @@ class CreateAccountRestController {
     private final CreateAccountMapper createAccountMapper;
     private final HttpServletRequest servletRequest;
 
-    /**
-     * Handles the creation of a new user account.
-     * <p>
-     * This method processes a POST request containing user details. It validates the request body,
-     * maps it to a command, and then uses the {@link CreateAccountUseCase} to create the account.
-     * The response varies based on the outcome of the use case:
-     * <ul>
-     * <li>{@code 201 Created}: On successful account creation, returns the new user's ID.</li>
-     * <li>{@code 400 Bad Request}: If the account already exists or the password policy is not met.</li>
-     * <li>{@code 500 Internal Server Error}: For any unexpected internal errors.</li>
-     * </ul>
-     *
-     * @param request The {@link CreateAccountRequest} containing the new user's details.
-     * @return A {@link ResponseEntity} with the appropriate status and body.
-     */
+    /// Handles the creation of a new user account.
+    ///
+    /// This method processes a POST request containing user details. It validates the request body,
+    /// maps it to a command, and then uses the [CreateAccountUseCase] to create the account.
+    /// The response varies based on the outcome of the use case:
+    ///
+    ///   - `201 Created`: On successful account creation, returns the new user's ID.
+    ///   - `400 Bad Request`: If the account already exists or the password policy is not met.
+    ///   - `500 Internal Server Error`: For any unexpected internal errors.
+    ///
+    ///
+    /// @param request The [CreateAccountRequest] containing the new user's details.
+    /// @return A [ResponseEntity] with the appropriate status and body.
     @PostMapping
     ResponseEntity<?> createUser(@Validated @RequestBody CreateAccountRequest request) {
         log.info("Request: {}", request);
@@ -76,43 +72,29 @@ class CreateAccountRestController {
         };
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    // Contract Types Section
-    // -----------------------------------------------------------------------------------------------------------------
-
-    /**
-     * Represents the data transfer object for creating a new user account.
-     *
-     * @param email     The user's email address.
-     * @param password  The user's chosen password.
-     * @param firstName The user's first name.
-     * @param lastName  The user's last name.
-     */
+    /// Represents the data transfer object for creating a new user account.
+    ///
+    /// @param email     The user's email address.
+    /// @param password  The user's chosen password.
+    /// @param firstName The user's first name.
+    /// @param lastName  The user's last name.
     record CreateAccountRequest(
             @NotNull String email,
             @NotNull String password,
             @NotNull String firstName,
             @NotNull String lastName) {}
 
-    /**
-     * Base interface for all possible account creation responses.
-     */
+    /// Base interface for all possible account creation responses.
     interface CreateAccountResponse {
         record SuccessResponse(UserId userId) implements CreateAccountResponse {}
     }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    // Static Types Section
-    // -----------------------------------------------------------------------------------------------------------------
 
     private static ResponseEntity<CreateAccountResponse> successBody(UserId userId) {
         return status(HttpStatus.CREATED).body(new CreateAccountResponse.SuccessResponse(userId));
     }
 
-    /**
-     * Maps between the {@link CreateAccountRequest} DTO and
-     * the domain-specific {@link CreateAccountUseCase.CreateAccountCommand}.
-     */
+    /// Maps between the [CreateAccountRequest] DTO and
+    /// the domain-specific [CreateAccountUseCase.CreateAccountCommand].
     private static class CreateAccountMapper {
         CreateAccountUseCase.CreateAccountCommand toCommand(CreateAccountRequest request) {
             return new CreateAccountUseCase.CreateAccountCommand(
