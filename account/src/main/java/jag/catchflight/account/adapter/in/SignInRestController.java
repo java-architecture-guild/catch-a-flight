@@ -68,7 +68,6 @@ class SignInRestController {
         log.info("Request: {}", request);
         var signInCommand = signInMapper.toCommand(request);
         var signInResult = signInUseCase.signIn(signInCommand);
-
         return switch (signInResult) {
             case SignInUseCase.SignInResult.Success(UserId userId) -> successBody(userId);
             case AuthenticationFailure _ -> badRequestBody(servletRequest, INCORRECT_CREDENTIALS);

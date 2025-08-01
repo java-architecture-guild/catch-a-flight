@@ -44,7 +44,6 @@ import static org.springframework.http.ResponseEntity.status;
 @RestController
 @RequiredArgsConstructor
 class CreateAccountRestController {
-
     private final CreateAccountUseCase createAccountUseCase;
     private final CreateAccountMapper createAccountMapper;
     private final HttpServletRequest servletRequest;
@@ -69,7 +68,6 @@ class CreateAccountRestController {
         log.info("Request: {}", request);
         var createUserCommand = createAccountMapper.toCommand(request);
         var createUserResult = createAccountUseCase.createUser(createUserCommand);
-
         return switch (createUserResult) {
             case Success(UserId userId) -> successBody(userId);
             case ExistingAccountFailure(String message) -> badRequestBody(servletRequest, message);
