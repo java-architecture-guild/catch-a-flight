@@ -5,12 +5,18 @@
 
 package jag.catchflight.account.adapter.in;
 
+import jag.catchflight.account.port.in.UpgradeAccountUseCase;
 import jag.catchflight.common.annotations.hexagonal.InboundAdapter;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Implementation
 // ---------------------------------------------------------------------------------------------------------------------
 
+@Service
 @InboundAdapter
+@RequiredArgsConstructor
 class SubscriptionPaidEventHandler {
+    private final UpgradeAccountUseCase upgradeAccountUseCase;
 }

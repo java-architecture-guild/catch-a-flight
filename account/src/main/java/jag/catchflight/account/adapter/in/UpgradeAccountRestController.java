@@ -6,11 +6,13 @@
 package jag.catchflight.account.adapter.in;
 
 import jag.catchflight.common.annotations.hexagonal.InboundAdapter;
+import org.springframework.web.bind.annotation.RestController;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Implementation
 // ---------------------------------------------------------------------------------------------------------------------
 
+@RestController
 @InboundAdapter
 class UpgradeAccountRestController {
 }
