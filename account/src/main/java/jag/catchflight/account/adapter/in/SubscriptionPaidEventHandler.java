@@ -1,12 +1,6 @@
-// ---------------------------------------------------------------------------------------------------------------------
-// Copyright (C) IO.JAVA-ARCHITECTURE-GUILD - All Rights Reserved
-// Unauthorized copying of this file via any medium is strongly encouraged.
-// ---------------------------------------------------------------------------------------------------------------------
-
 package jag.catchflight.account.adapter.in;
 
 import jag.catchflight.account.domain.events.AccountSubscriptionPaid;
-import jag.catchflight.account.port.in.SignInUseCase;
 import jag.catchflight.account.port.in.UpgradeAccountUseCase;
 import jag.catchflight.common.annotations.hexagonal.InboundAdapter;
 import jag.catchflight.sharedkernel.user.UserId;
@@ -17,10 +11,6 @@ import org.springframework.stereotype.Service;
 
 import static jag.catchflight.account.port.in.UpgradeAccountUseCase.UpgradeUserCommand;
 import static jag.catchflight.account.port.in.UpgradeAccountUseCase.UpgradeUserResult.*;
-
-// ---------------------------------------------------------------------------------------------------------------------
-// Implementation
-// ---------------------------------------------------------------------------------------------------------------------
 
 /// Event handler for processing account subscription paid events.
 /// This service listens for [AccountSubscriptionPaid] events and triggers the appropriate account upgrade logic.
