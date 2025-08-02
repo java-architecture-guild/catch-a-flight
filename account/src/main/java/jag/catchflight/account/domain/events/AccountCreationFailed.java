@@ -4,9 +4,9 @@ import jag.catchflight.common.events.DomainEvent;
 
 import java.util.UUID;
 
-public record AccountCreationFailed() implements DomainEvent {
+public record AccountCreationFailed(UUID eventId) implements DomainEvent {
     @Override
     public UUID eventId() {
-        return null;
+        return eventId;
     }
 }

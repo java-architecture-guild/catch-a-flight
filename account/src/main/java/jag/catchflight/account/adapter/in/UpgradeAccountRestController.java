@@ -24,7 +24,6 @@ import static jag.catchflight.account.port.in.UpgradeAccountUseCase.UpgradeUserR
 @InboundAdapter
 @RequiredArgsConstructor
 class UpgradeAccountRestController {
-
     private final UpgradeAccountUseCase upgradeAccountUseCase;
     private final UpgradeUserMapper upgradeUserMapper;
     private final HttpServletRequest servletRequest;
