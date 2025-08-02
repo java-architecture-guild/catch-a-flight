@@ -4,9 +4,15 @@ import jag.catchflight.common.events.DomainEvent;
 
 import java.util.UUID;
 
-public record AccountSubscriptionPaid() implements DomainEvent {
+/// A record representing a domain event indicating that an account subscription has been paid.
+///
+/// @param eventId the unique identifier for this event
+public record AccountSubscriptionPaid(UUID eventId) implements DomainEvent {
+    /// Returns the unique identifier for this event.
+    ///
+    /// @return the event's UUID
     @Override
     public UUID eventId() {
-        return null;
+        return eventId;
     }
 }

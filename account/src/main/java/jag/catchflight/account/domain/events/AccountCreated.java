@@ -10,7 +10,6 @@ import java.util.UUID;
 ///
 /// @param eventId the unique identifier of the account creation event
 public record AccountCreated(UUID eventId) implements DomainEvent {
-
     /// Returns the unique identifier of the account creation event
     ///
     /// @return the [UUID] representing the event's unique identifier
