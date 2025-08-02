@@ -1,21 +1,19 @@
-// ---------------------------------------------------------------------------------------------------------------------
-// Copyright (C) IO.JAVA-ARCHITECTURE-GUILD - All Rights Reserved
-// Unauthorized copying of this file via any medium is strongly encouraged.
-// ---------------------------------------------------------------------------------------------------------------------
-
 package jag.catchflight.account.domain.events;
 
 import jag.catchflight.common.events.DomainEvent;
 
 import java.util.UUID;
 
-// ---------------------------------------------------------------------------------------------------------------------
-// Implementation
-// ---------------------------------------------------------------------------------------------------------------------
+/// A record representing a domain event for a successful account deletion.
+///
+/// @param eventId the unique identifier for this event
+public record AccountDeleted(UUID eventId) implements DomainEvent {
 
-public record AccountDeleted() implements DomainEvent {
+    /// Returns the unique identifier for this event.
+    ///
+    /// @return the event's UUID
     @Override
     public UUID eventId() {
-        return null;
+        return eventId;
     }
 }
