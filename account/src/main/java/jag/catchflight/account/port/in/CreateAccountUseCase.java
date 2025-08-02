@@ -1,8 +1,3 @@
-// ---------------------------------------------------------------------------------------------------------------------
-// Copyright (C) IO.JAVA-ARCHITECTURE-GUILD - All Rights Reserved
-// Unauthorized copying of this file via any medium is strongly encouraged.
-// ---------------------------------------------------------------------------------------------------------------------
-
 package jag.catchflight.account.port.in;
 
 import jag.catchflight.account.domain.model.Password;
@@ -12,10 +7,6 @@ import jag.catchflight.sharedkernel.user.Email;
 import jag.catchflight.sharedkernel.user.UserId;
 
 import java.util.Objects;
-
-// ---------------------------------------------------------------------------------------------------------------------
-// Implementation
-// ---------------------------------------------------------------------------------------------------------------------
 
 @InboundPort
 public interface CreateAccountUseCase {

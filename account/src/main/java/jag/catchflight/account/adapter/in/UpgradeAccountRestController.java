@@ -1,8 +1,3 @@
-// ---------------------------------------------------------------------------------------------------------------------
-// Copyright (C) IO.JAVA-ARCHITECTURE-GUILD - All Rights Reserved
-// Unauthorized copying of this file via any medium is strongly encouraged.
-// ---------------------------------------------------------------------------------------------------------------------
-
 package jag.catchflight.account.adapter.in;
 
 import jag.catchflight.account.port.in.UpgradeAccountUseCase;
@@ -21,10 +16,6 @@ import java.util.UUID;
 
 import static jag.catchflight.account.port.in.UpgradeAccountUseCase.UpgradeUserCommand;
 import static jag.catchflight.account.port.in.UpgradeAccountUseCase.UpgradeUserResult.*;
-
-// ---------------------------------------------------------------------------------------------------------------------
-// Implementation
-// ---------------------------------------------------------------------------------------------------------------------
 
 /// REST controller for handling account upgrade requests.
 /// This controller processes HTTP requests to upgrade a user account and returns appropriate responses based on the outcome.
