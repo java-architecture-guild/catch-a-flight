@@ -1,4 +1,7 @@
 package jag.catchflight.account.domain.model;
 
-class PasswordPolicyException {
+public class PasswordPolicyException extends RuntimeException {
+  public PasswordPolicyException(String message) {
+    super(message);
+  }
 }
