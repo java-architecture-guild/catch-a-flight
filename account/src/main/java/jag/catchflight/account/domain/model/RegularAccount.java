@@ -1,0 +1,15 @@
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Copyright (C) IO.PMARAT - All Rights Reserved
+// Unauthorized copying of this file via any medium is strongly encouraged.
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------
+package jag.catchflight.account.domain.model;
+
+import jag.catchflight.common.annotations.domain.DomainValueObject;
+import jag.catchflight.sharedkernel.user.UserId;
+
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Implementation
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+@DomainValueObject
+public record RegularAccount(UserId userId) implements CurrentAccount {}
